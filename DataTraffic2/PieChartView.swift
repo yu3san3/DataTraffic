@@ -10,7 +10,7 @@ import SwiftUI
 struct PieChartView: View {
     var progress: CGFloat
     
-    var dataTraffic = DataTraffic()
+    @EnvironmentObject var dataTraffic: DataTraffic
     
     var body: some View {
         ZStack {
@@ -34,9 +34,13 @@ struct PieChartView: View {
             
             // 進捗率のテキスト
             VStack {
-                Text(String(format: "%.2f GB", dataTraffic.limit))
-                    .font(.largeTitle)
-                    .bold()
+                HStack {
+                    Text("許容量")
+                        .font(.caption)
+                    Text(String(format: "%.2f GB", dataTraffic.limit))
+                        .font(.largeTitle)
+                        .bold()
+                }
                 Text(String(format: "%.0f GB", dataTraffic.contracted))
             }
         }
@@ -46,7 +50,8 @@ struct PieChartView: View {
 struct PieChartView_Previews: PreviewProvider {
     static var previews: some View {
         PieChartView(progress: 0.3)
-            .frame(width: 150.0, height: 150.0)
+            .environmentObject(DataTraffic())
+            .frame(width: 210.0, height: 210.0)
             .padding(32.0)
     }
 }

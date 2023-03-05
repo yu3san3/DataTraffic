@@ -27,8 +27,9 @@ let globalBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 //メインビュー
 struct ContentView: View {
     
-    //インスタンスを作成
-    let dataTraffic = DataTraffic()
+    //DataTrafficクラスのインスタンスを共有する
+    @EnvironmentObject var dataTraffic: DataTraffic
+    
     @ObservedObject var observedDate = ObservedDate()
     
     //画面遷移フラグ
@@ -36,17 +37,23 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            //日付と限界通信量を表示
-            VStack {
-                Text(observedDate.current)
-                    .padding()
-                Text("許容通信量")
-                PieChartView(progress: dataTraffic.limit/dataTraffic.contracted)
-                    .frame(width: 180.0, height: 180.0)
-                    .padding(32.0)
-            }
-            .onAppear() {
-                dataTraffic.calculateLimit()
+            List {
+                //日付と限界通信量を表示
+                HStack {
+                    Spacer()
+                    VStack {
+                        Text("\(observedDate.current) 現在")
+                            .font(.caption)
+                            .padding()
+                        PieChartView(progress: dataTraffic.limit/dataTraffic.contracted)
+                            .frame(width: 210, height: 210)
+                            .padding(32)
+                    }
+                    Spacer()
+                }
+                .onAppear() {
+                    dataTraffic.calculateLimit()
+                }
             }
             //ツールバー
             .toolbar {
@@ -61,7 +68,7 @@ struct ContentView: View {
                         .sheet(
                             isPresented: $isShowingConfig,
                             onDismiss: {
-//                                dataTraffic.objectWillChange.send() //値の変化を通知する
+                                dataTraffic.objectWillChange.send() //値の変化を通知する
                             }
                         ) {
                             ConfigView()
@@ -109,5 +116,6 @@ class ObservedDate: ObservableObject {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(DataTraffic())
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct ConfigView: View {
     
     //インスタンスを作成
-    @ObservedObject var dataTraffic = DataTraffic()
+    @EnvironmentObject var dataTraffic: DataTraffic
     
     @Environment(\.dismiss) var dismiss
     
@@ -62,7 +62,7 @@ struct ConfigView: View {
 //                            Text("現在の値: \(dataTraffic.contracted)")
 //                        }
 //                    )
-                    NavigationLink(destination: ContractedDataTrafficConfigView(dataTraffic: dataTraffic)) {
+                    NavigationLink(destination: ContractedDataTrafficConfigView()) {
                         HStack {
                             Text("契約データ量")
                             Spacer()
@@ -103,7 +103,7 @@ struct ConfigView: View {
 struct ContractedDataTrafficConfigView: View {
     
     //インスタンスを作成
-    @ObservedObject var dataTraffic: DataTraffic
+    @EnvironmentObject var dataTraffic: DataTraffic
     
 //    @Environment(\.dismiss) var dismiss
     
@@ -147,8 +147,9 @@ struct ContractedDataTrafficConfigView: View {
 
 struct Config_Previews: PreviewProvider {
     static var previews: some View {
-        let dataTraffic = DataTraffic()
         ConfigView()
-        ContractedDataTrafficConfigView(dataTraffic: dataTraffic)
+            .environmentObject(DataTraffic())
+        ContractedDataTrafficConfigView()
+            .environmentObject(DataTraffic())
     }
 }
