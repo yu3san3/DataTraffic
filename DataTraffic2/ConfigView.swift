@@ -14,16 +14,59 @@ struct ConfigView: View {
     @ObservedObject var dataTraffic = DataTraffic()
     
     @Environment(\.dismiss) var dismiss
+    
+    @State private var textFieldContent: String = ""
+    @State private var isTapped: Bool = false
 
     var body: some View {
         NavigationView {
             List {
                 Section {
+//                    HStack {
+//                        Text("契約データ量")
+//                        Spacer()
+//                        Text("\(dataTraffic.contracted) GB")
+//                        Image(systemName: "chevron.forward") //Disclosure Indicator(>)
+//                            .font(Font.system(.caption).weight(.bold))
+//                            .foregroundColor(Color(UIColor.tertiaryLabel))
+//                    }
+//                    .contentShape(Rectangle())
+//                    .onTapGesture {
+//                        textFieldContent = String(dataTraffic.contracted)
+//                        isTapped = true
+//                    }
+//                    .alert(
+//                        "契約データ量",
+//                        isPresented: $isTapped,
+//                        actions: {
+//                            TextField("0", text: $textFieldContent)
+//                                .keyboardType(.numberPad)
+//                                .onReceive( //テキストを全選択
+//                                    NotificationCenter.default.publisher(
+//                                        for: UITextField.textDidBeginEditingNotification
+//                                    )
+//                                ) { obj in
+//                                    if let textField = obj.object as? UITextField {
+//                                        textField.selectedTextRange = textField.textRange(
+//                                            from: textField.beginningOfDocument,
+//                                            to: textField.endOfDocument
+//                                        )
+//                                    }
+//                                }
+//                            Button("OK") {
+//                                dataTraffic.contracted = Double(textFieldContent) ?? 0
+//                            }
+//                            Button("キャンセル", role: .cancel) {}
+//                        },
+//                        message: {
+//                            Text("現在の値: \(dataTraffic.contracted)")
+//                        }
+//                    )
                     NavigationLink(destination: ContractedDataTrafficConfigView(dataTraffic: dataTraffic)) {
                         HStack {
                             Text("契約データ量")
                             Spacer()
-                            Text("\(dataTraffic.contracted) GB")
+                            Text("\(String(format: "%.0f", dataTraffic.contracted)) GB")
                         }
                     }
                 } header: {
@@ -62,56 +105,43 @@ struct ContractedDataTrafficConfigView: View {
     //インスタンスを作成
     @ObservedObject var dataTraffic: DataTraffic
     
-    @Environment(\.dismiss) var dismiss
+//    @Environment(\.dismiss) var dismiss
     
     @FocusState var isInputActive: Bool //フォーカスがあるか確認
     
-    @State var simpleConfigVar: Int?
+    @State private var textFieldContent: String = "0"
     
     var body: some View {
-        VStack {
-            List(selection: $simpleConfigVar) {
-                Section {
-                    //                    HStack{
-                    Text("3 GB").tag(3)
-                    //                        Spacer()
-                    //                    }
-                    Text("20 GB").tag(20)
-                    Text("100 GB").tag(100)
-                } header: {
-                    Text("簡易設定")
-                }
-//                                .contentShape(Rectangle())
-//                                .onTapGesture {
-//                                    print(simpleConfigVar)
-//                                    dataTraffic.contracted = String(simpleConfigVar ?? 0)
-//                                }
-                Section {
-                    HStack {
-                        Text("契約通信量: ")
-                        TextField("0", text: $dataTraffic.contracted)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .frame(width: 100)
-                            .focused($isInputActive) //テキストフィールドのフォーカスを設定
-                            .toolbar {
-                                ToolbarItemGroup(placement: .keyboard) {
-                                    Spacer()
-                                    Button("完了") {
-                                        dataTraffic.calculateLimit()
-                                        isInputActive = false
-                                    }
+        List {
+            Section {
+                HStack {
+                    Text("契約通信量: ")
+                    TextField("0", text: $textFieldContent)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .frame(width: 100)
+                        .focused($isInputActive) //テキストフィールドのフォーカスを設定
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Spacer()
+                                Button("完了") {
+                                    dataTraffic.contracted = Double(textFieldContent)!
+                                    dataTraffic.calculateLimit()
+                                    isInputActive = false
                                 }
                             }
-                    }
-                } header: {
-                    Text("詳細設定")
-                } footer: {
-                    Text("許容通信量は月末締めで計算されます。")
+                        }
+                        .onAppear() {
+                            textFieldContent = String(format: "%.0f", dataTraffic.contracted)
+                        }
                 }
+            } header: {
+                Text("詳細設定")
+            } footer: {
+                Text("許容通信量は月末締めで計算されます。")
             }
-            .environment(\.editMode, .constant(.active))
         }
+//        .environment(\.editMode, .constant(.active))
     }
 }
 

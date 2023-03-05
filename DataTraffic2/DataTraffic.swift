@@ -9,14 +9,11 @@ import SwiftUI
 
 class DataTraffic: ObservableObject {
     
-    @AppStorage("contractedDataTrafficKey") var contracted = "20" //契約通信量
-    @AppStorage("dataTrafficLimitKey") var limit = "0" //許容通信量
+    @AppStorage("contractedDataTrafficKey") var contracted: Double = 20 //契約通信量
+    @AppStorage("dataTrafficLimitKey") var limit: Double = 0 //許容通信量
     
     //限界通信量を計算する関数
     func calculateLimit() {
-        
-        //契約通信量を読み込み
-        let contractedDataTrafficConst = Double(contracted) ?? 0
         
         let dF = DateFormatter()
 
@@ -37,9 +34,9 @@ class DataTraffic: ObservableObject {
         let lastDate = Double(dF.string(from: lastday!))
         
         //計算
-        let dataTrafficLimit = (contractedDataTrafficConst/lastDate!)*todayDate!
+        let dataTrafficLimit = (contracted/lastDate!)*todayDate!
         
-        limit = String(format: "%.2f", dataTrafficLimit)
+        limit = dataTrafficLimit
         self.objectWillChange.send() //値の変化を通知する
     }
 }

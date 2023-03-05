@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB6A1C7629B4EBFE00C2C219 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6A1C7529B4EBFE00C2C219 /* PieChartView.swift */; };
 		EBE586D0283C8DBB004B4C3E /* DataTraffic2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE586CF283C8DBB004B4C3E /* DataTraffic2App.swift */; };
 		EBE586D2283C8DBB004B4C3E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE586D1283C8DBB004B4C3E /* ContentView.swift */; };
 		EBE586D4283C8DBF004B4C3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBE586D3283C8DBF004B4C3E /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EB6A1C7529B4EBFE00C2C219 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		EBC58A4628F02DAE00389111 /* DataTraffic2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DataTraffic2.entitlements; sourceTree = "<group>"; };
 		EBC58A4728F02E5000389111 /* DataTraffic2WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DataTraffic2WidgetExtension.entitlements; sourceTree = "<group>"; };
 		EBE586CC283C8DBB004B4C3E /* データ通信量.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "データ通信量.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +153,7 @@
 				EBC58A4628F02DAE00389111 /* DataTraffic2.entitlements */,
 				EBE586CF283C8DBB004B4C3E /* DataTraffic2App.swift */,
 				EBE586D1283C8DBB004B4C3E /* ContentView.swift */,
+				EB6A1C7529B4EBFE00C2C219 /* PieChartView.swift */,
 				EBF15BD4299942C4001F63AD /* ConfigView.swift */,
 				EBF15BD62999446B001F63AD /* DataTraffic.swift */,
 				EBE586D3283C8DBF004B4C3E /* Assets.xcassets */,
@@ -365,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB6A1C7629B4EBFE00C2C219 /* PieChartView.swift in Sources */,
 				EBF15BD5299942C4001F63AD /* ConfigView.swift in Sources */,
 				EBE5870B28407673004B4C3E /* DataTraffic2Widget.intentdefinition in Sources */,
 				EBF15BD72999446B001F63AD /* DataTraffic.swift in Sources */,
@@ -542,7 +546,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DataTraffic2/DataTraffic2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"DataTraffic2/Preview Content\"";
 				DEVELOPMENT_TEAM = CZNP3969US;
 				ENABLE_PREVIEWS = YES;
@@ -556,7 +560,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "Alpha 2.1.2";
+				MARKETING_VERSION = "Alpha 2.2.0";
 				PRODUCT_BUNDLE_IDENTIFIER = com.niwa.DataTraffic2;
 				PRODUCT_NAME = "データ通信量";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -573,7 +577,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DataTraffic2/DataTraffic2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"DataTraffic2/Preview Content\"";
 				DEVELOPMENT_TEAM = CZNP3969US;
 				ENABLE_PREVIEWS = YES;
@@ -587,7 +591,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "Alpha 2.1.2";
+				MARKETING_VERSION = "Alpha 2.2.0";
 				PRODUCT_BUNDLE_IDENTIFIER = com.niwa.DataTraffic2;
 				PRODUCT_NAME = "データ通信量";
 				SWIFT_EMIT_LOC_STRINGS = YES;

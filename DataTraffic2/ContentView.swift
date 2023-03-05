@@ -20,7 +20,7 @@
 import SwiftUI
 
 //バージョン情報
-let globalVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+let globalVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
 //ビルド情報
 let globalBuildNum = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
 
@@ -40,8 +40,10 @@ struct ContentView: View {
             VStack {
                 Text(observedDate.current)
                     .padding()
-                Text("今日までの許容通信量 : \(dataTraffic.limit) GB")
-                    .padding()
+                Text("許容通信量")
+                PieChartView(progress: dataTraffic.limit/dataTraffic.contracted)
+                    .frame(width: 180.0, height: 180.0)
+                    .padding(32.0)
             }
             .onAppear() {
                 dataTraffic.calculateLimit()
@@ -56,7 +58,12 @@ struct ContentView: View {
                             Image(systemName: "gearshape")
                         }
                         //画面を遷移
-                        .sheet(isPresented: $isShowingConfig) {
+                        .sheet(
+                            isPresented: $isShowingConfig,
+                            onDismiss: {
+//                                dataTraffic.objectWillChange.send() //値の変化を通知する
+                            }
+                        ) {
                             ConfigView()
                         }
                         Spacer()
@@ -66,7 +73,6 @@ struct ContentView: View {
             .navigationTitle("データ通信量")
         }
     }
-    
 }
 
 //日付の変更で更新
