@@ -22,21 +22,20 @@ class DataTraffic: ObservableObject {
         
         //月初を取得
         let comps = calendar.dateComponents([.year, .month], from: date)
-        let firstday = calendar.date(from: comps)
+        let firstday = calendar.date(from: comps)!
         //月末を取得
         let add = DateComponents(month: 1, day: -1)
-        let lastday = calendar.date(byAdding: add, to: firstday!)
+        let lastday = calendar.date(byAdding: add, to: firstday)!
         
         //フォーマット形式を指定(日付のみ取得)
         dF.dateFormat = "dd"
         //月初・月末の日付を取得
-        let todayDate = Double(dF.string(from: date))
-        let lastDate = Double(dF.string(from: lastday!))
+        let todayDate = Double(dF.string(from: date))!
+        let lastDate = Double(dF.string(from: lastday))!
         
         //計算
-        let dataTrafficLimit = (contracted/lastDate!)*todayDate!
+        let dataTrafficLimit = (contracted/lastDate)*todayDate
         
         limit = dataTrafficLimit
-        self.objectWillChange.send() //値の変化を通知する
     }
 }

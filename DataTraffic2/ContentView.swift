@@ -47,7 +47,7 @@ struct ContentView: View {
                             .padding()
                         PieChartView(progress: dataTraffic.limit/dataTraffic.contracted)
                             .frame(width: 210, height: 210)
-                            .padding(32)
+                            .padding(.bottom, 27)
                     }
                     Spacer()
                 }
@@ -65,12 +65,7 @@ struct ContentView: View {
                             Image(systemName: "gearshape")
                         }
                         //画面を遷移
-                        .sheet(
-                            isPresented: $isShowingConfig,
-                            onDismiss: {
-                                dataTraffic.objectWillChange.send() //値の変化を通知する
-                            }
-                        ) {
+                        .sheet(isPresented: $isShowingConfig) {
                             ConfigView()
                         }
                         Spacer()
