@@ -76,11 +76,13 @@ struct ContentView: View {
     }
 }
 
-//日付の変更で更新
+//変更を監視された日付を提供する
 class ObservedDate: ObservableObject {
     
+    //日付が変わると自動で値が入れ替わる
     @Published var currentDate: Date = Date()
 
+    //DateFormatterを定義
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ja_jp")
@@ -88,11 +90,13 @@ class ObservedDate: ObservableObject {
         return formatter
     }()
     
+    //フォーマットされた日付を提供
     var current: String {
         Self.dateFormatter.string(from: currentDate)
     }
     
     init() {
+        //日付の変更を監視するNotificationCenterを設定
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(dayDidChange),
@@ -101,6 +105,7 @@ class ObservedDate: ObservableObject {
         )
     }
     
+    //日付の変更で実行される
     @objc
     func dayDidChange() {
         currentDate = Date()
