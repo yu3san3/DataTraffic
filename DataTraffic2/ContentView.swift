@@ -15,6 +15,7 @@
 //       06/11 Alpha 2.1.2(9)
 //       10/07 Alpha 2.1.2(10)
 //          Widgetの実装に失敗。dataTrafficLimitをDataTraffic2Widget.swiftへ渡す方法が不明であったため。
+//  2023/03/07 Alpha 2.2.0(11)
 //
 
 import SwiftUI
@@ -43,10 +44,10 @@ struct ContentView: View {
                     VStack {
                         Text("\(observedDate.current) 現在")
                             .font(.caption)
-                            .padding()
+                            .padding(.top, 13)
                         PieChartView(progress: dataTraffic.limit/dataTraffic.contracted)
-                            .frame(width: 210, height: 210)
-                            .padding(.bottom, 27)
+                            .frame(width: 225, height: 225)
+                            .padding(27)
                     }
                     Spacer()
                 }
