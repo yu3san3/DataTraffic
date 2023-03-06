@@ -38,7 +38,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                //日付と限界通信量を表示
                 HStack {
                     Spacer()
                     VStack {
@@ -82,16 +81,16 @@ class ObservedDate: ObservableObject {
     
     @Published var currentDate: Date = Date()
 
-    var current: String {
-        Self.dateFormatter.string(from: currentDate)
-    }
-    
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ja_jp")
         formatter.dateFormat = "y年M月d日(E)"
         return formatter
     }()
+    
+    var current: String {
+        Self.dateFormatter.string(from: currentDate)
+    }
     
     init() {
         NotificationCenter.default.addObserver(
