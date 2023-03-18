@@ -72,7 +72,7 @@ struct ContractedPlanConfigView: View {
         List {
             Section {
                 HStack {
-                    Text("契約通信量")
+                    Text("契約データ量")
                     Spacer()
                     TextField("0", text: $textFieldContent)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -94,8 +94,6 @@ struct ContractedPlanConfigView: View {
                         }
                     Text("GB")
                 }
-            } header: {
-                Text("契約プラン設定")
             } footer: {
                 Text("許容量は月末締めで計算されます。")
             }
